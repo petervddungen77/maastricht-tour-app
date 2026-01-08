@@ -1,0 +1,531 @@
+{
+  "lastUpdated": "2026-01-08",
+  "reportingPeriod": "Q1 2026",
+  "perspectives": {
+    "financial": {
+      "name": "Financial Perspective",
+      "objective": "Achieve sustainable revenue growth and profitability",
+      "metrics": [
+        {
+          "id": "mrr",
+          "name": "Monthly Recurring Revenue (MRR)",
+          "unit": "EUR",
+          "target": 50000,
+          "current": 0,
+          "status": "red",
+          "trend": "flat",
+          "history": []
+        },
+        {
+          "id": "cac",
+          "name": "Customer Acquisition Cost (CAC)",
+          "unit": "EUR",
+          "target": 15,
+          "targetOperator": "<=",
+          "current": null,
+          "status": "red",
+          "trend": "flat",
+          "history": []
+        },
+        {
+          "id": "arpu",
+          "name": "Average Revenue Per User (ARPU)",
+          "unit": "EUR",
+          "target": 25,
+          "current": null,
+          "status": "red",
+          "trend": "flat",
+          "history": []
+        },
+        {
+          "id": "profit_margin",
+          "name": "Profit Margin",
+          "unit": "%",
+          "target": 35,
+          "current": null,
+          "status": "red",
+          "trend": "flat",
+          "history": []
+        },
+        {
+          "id": "conversion_rate",
+          "name": "Conversion Rate",
+          "unit": "%",
+          "target": 8,
+          "current": null,
+          "status": "red",
+          "trend": "flat",
+          "history": []
+        }
+      ]
+    },
+    "customer": {
+      "name": "Customer Perspective",
+      "objective": "Deliver exceptional user experience and build loyal customer base",
+      "metrics": [
+        {
+          "id": "nps",
+          "name": "Net Promoter Score (NPS)",
+          "unit": "score",
+          "target": 60,
+          "targetOperator": ">=",
+          "current": null,
+          "status": "red",
+          "trend": "flat",
+          "history": []
+        },
+        {
+          "id": "csat",
+          "name": "Customer Satisfaction Score (CSAT)",
+          "unit": "rating",
+          "target": 4.5,
+          "scale": 5,
+          "current": null,
+          "status": "red",
+          "trend": "flat",
+          "history": []
+        },
+        {
+          "id": "mau",
+          "name": "Monthly Active Users (MAU)",
+          "unit": "users",
+          "target": 10000,
+          "current": 0,
+          "status": "red",
+          "trend": "flat",
+          "history": []
+        },
+        {
+          "id": "retention_rate",
+          "name": "User Retention Rate (90-day)",
+          "unit": "%",
+          "target": 60,
+          "current": null,
+          "status": "red",
+          "trend": "flat",
+          "history": []
+        },
+        {
+          "id": "app_rating",
+          "name": "App Store Rating",
+          "unit": "rating",
+          "target": 4.7,
+          "scale": 5,
+          "current": null,
+          "status": "red",
+          "trend": "flat",
+          "history": []
+        },
+        {
+          "id": "churn_rate",
+          "name": "Customer Churn Rate",
+          "unit": "%",
+          "target": 5,
+          "targetOperator": "<=",
+          "current": null,
+          "status": "red",
+          "trend": "flat",
+          "history": []
+        },
+        {
+          "id": "session_duration",
+          "name": "Average Session Duration",
+          "unit": "minutes",
+          "target": 25,
+          "current": null,
+          "status": "red",
+          "trend": "flat",
+          "history": []
+        }
+      ]
+    },
+    "internal_process": {
+      "name": "Internal Process Perspective",
+      "objective": "Optimize operational efficiency and tour quality",
+      "metrics": [
+        {
+          "id": "uptime",
+          "name": "App Uptime",
+          "unit": "%",
+          "target": 99.9,
+          "current": null,
+          "status": "red",
+          "trend": "flat",
+          "history": []
+        },
+        {
+          "id": "page_load_time",
+          "name": "Average Page Load Time",
+          "unit": "seconds",
+          "target": 2,
+          "targetOperator": "<=",
+          "current": null,
+          "status": "red",
+          "trend": "flat",
+          "history": []
+        },
+        {
+          "id": "content_update_freq",
+          "name": "Content Update Frequency",
+          "unit": "updates/week",
+          "target": 1,
+          "targetOperator": ">=",
+          "current": 0,
+          "status": "red",
+          "trend": "flat",
+          "history": []
+        },
+        {
+          "id": "bug_resolution_time",
+          "name": "Bug Resolution Time",
+          "unit": "hours",
+          "target": 48,
+          "targetOperator": "<=",
+          "current": null,
+          "status": "red",
+          "trend": "flat",
+          "history": []
+        },
+        {
+          "id": "tour_completion_rate",
+          "name": "Tour Completion Rate",
+          "unit": "%",
+          "target": 75,
+          "current": null,
+          "status": "red",
+          "trend": "flat",
+          "history": []
+        },
+        {
+          "id": "api_response_time",
+          "name": "API Response Time",
+          "unit": "milliseconds",
+          "target": 500,
+          "targetOperator": "<=",
+          "current": null,
+          "status": "red",
+          "trend": "flat",
+          "history": []
+        },
+        {
+          "id": "active_tours",
+          "name": "Number of Active Tours",
+          "unit": "tours",
+          "target": 25,
+          "targetOperator": ">=",
+          "current": 0,
+          "status": "red",
+          "trend": "flat",
+          "history": []
+        }
+      ]
+    },
+    "learning_growth": {
+      "name": "Learning & Growth Perspective",
+      "objective": "Foster innovation and build organizational capabilities",
+      "metrics": [
+        {
+          "id": "new_features",
+          "name": "New Features Released",
+          "unit": "features/month",
+          "target": 2,
+          "current": 0,
+          "status": "red",
+          "trend": "flat",
+          "history": []
+        },
+        {
+          "id": "employee_satisfaction",
+          "name": "Employee Satisfaction",
+          "unit": "rating",
+          "target": 4,
+          "scale": 5,
+          "current": null,
+          "status": "red",
+          "trend": "flat",
+          "history": []
+        },
+        {
+          "id": "training_hours",
+          "name": "Training Hours per Employee",
+          "unit": "hours/year",
+          "target": 40,
+          "current": 0,
+          "status": "red",
+          "trend": "flat",
+          "history": []
+        },
+        {
+          "id": "tech_stack_currency",
+          "name": "Technology Stack Currency",
+          "unit": "%",
+          "target": 90,
+          "current": null,
+          "status": "red",
+          "trend": "flat",
+          "history": []
+        },
+        {
+          "id": "innovation_index",
+          "name": "Innovation Index",
+          "unit": "%",
+          "target": 15,
+          "current": null,
+          "status": "red",
+          "trend": "flat",
+          "history": []
+        },
+        {
+          "id": "documentation_coverage",
+          "name": "Documentation Coverage",
+          "unit": "%",
+          "target": 80,
+          "current": null,
+          "status": "red",
+          "trend": "flat",
+          "history": []
+        }
+      ]
+    }
+  },
+  "initiatives": {
+    "financial": [
+      {
+        "id": "f1",
+        "title": "Implement tiered pricing model",
+        "description": "Create Basic, Premium, and Enterprise pricing tiers",
+        "status": "planned",
+        "priority": "high",
+        "owner": null,
+        "dueDate": null,
+        "progress": 0
+      },
+      {
+        "id": "f2",
+        "title": "Launch partnership program",
+        "description": "Partner with local businesses for cross-promotion",
+        "status": "planned",
+        "priority": "medium",
+        "owner": null,
+        "dueDate": null,
+        "progress": 0
+      },
+      {
+        "id": "f3",
+        "title": "Optimize marketing spend",
+        "description": "Analyze and optimize marketing channel allocation",
+        "status": "planned",
+        "priority": "high",
+        "owner": null,
+        "dueDate": null,
+        "progress": 0
+      },
+      {
+        "id": "f4",
+        "title": "Introduce in-app purchases",
+        "description": "Add premium content available for purchase",
+        "status": "planned",
+        "priority": "medium",
+        "owner": null,
+        "dueDate": null,
+        "progress": 0
+      }
+    ],
+    "customer": [
+      {
+        "id": "c1",
+        "title": "Implement user feedback system",
+        "description": "Build in-app feedback and rating system",
+        "status": "planned",
+        "priority": "high",
+        "owner": null,
+        "dueDate": null,
+        "progress": 0
+      },
+      {
+        "id": "c2",
+        "title": "Launch personalized recommendations",
+        "description": "AI-powered tour recommendations based on preferences",
+        "status": "planned",
+        "priority": "medium",
+        "owner": null,
+        "dueDate": null,
+        "progress": 0
+      },
+      {
+        "id": "c3",
+        "title": "Create loyalty program",
+        "description": "Rewards program for frequent users",
+        "status": "planned",
+        "priority": "medium",
+        "owner": null,
+        "dueDate": null,
+        "progress": 0
+      },
+      {
+        "id": "c4",
+        "title": "Develop multilingual support",
+        "description": "Add Dutch, English, German, and French language support",
+        "status": "planned",
+        "priority": "high",
+        "owner": null,
+        "dueDate": null,
+        "progress": 0
+      },
+      {
+        "id": "c5",
+        "title": "Add offline tour capability",
+        "description": "Enable tours to work without internet connection",
+        "status": "planned",
+        "priority": "high",
+        "owner": null,
+        "dueDate": null,
+        "progress": 0
+      }
+    ],
+    "internal_process": [
+      {
+        "id": "p1",
+        "title": "Establish content creation workflow",
+        "description": "Define and implement content creation and approval process",
+        "status": "planned",
+        "priority": "high",
+        "owner": null,
+        "dueDate": null,
+        "progress": 0
+      },
+      {
+        "id": "p2",
+        "title": "Implement automated testing",
+        "description": "Set up comprehensive automated testing suite",
+        "status": "planned",
+        "priority": "high",
+        "owner": null,
+        "dueDate": null,
+        "progress": 0
+      },
+      {
+        "id": "p3",
+        "title": "Deploy CI/CD pipeline",
+        "description": "Implement continuous integration and deployment",
+        "status": "planned",
+        "priority": "high",
+        "owner": null,
+        "dueDate": null,
+        "progress": 0
+      },
+      {
+        "id": "p4",
+        "title": "Create CMS",
+        "description": "Build content management system for tour content",
+        "status": "planned",
+        "priority": "high",
+        "owner": null,
+        "dueDate": null,
+        "progress": 0
+      },
+      {
+        "id": "p5",
+        "title": "Partner with local experts",
+        "description": "Collaborate with historians and tour guides",
+        "status": "planned",
+        "priority": "medium",
+        "owner": null,
+        "dueDate": null,
+        "progress": 0
+      },
+      {
+        "id": "p6",
+        "title": "Implement analytics dashboard",
+        "description": "Real-time analytics and monitoring dashboard",
+        "status": "planned",
+        "priority": "medium",
+        "owner": null,
+        "dueDate": null,
+        "progress": 0
+      }
+    ],
+    "learning_growth": [
+      {
+        "id": "l1",
+        "title": "Implement sprint retrospectives",
+        "description": "Regular team retrospectives to improve processes",
+        "status": "planned",
+        "priority": "medium",
+        "owner": null,
+        "dueDate": null,
+        "progress": 0
+      },
+      {
+        "id": "l2",
+        "title": "Create knowledge wiki",
+        "description": "Internal documentation and knowledge base",
+        "status": "planned",
+        "priority": "medium",
+        "owner": null,
+        "dueDate": null,
+        "progress": 0
+      },
+      {
+        "id": "l3",
+        "title": "Conference attendance",
+        "description": "Attend relevant tech and tourism conferences",
+        "status": "planned",
+        "priority": "low",
+        "owner": null,
+        "dueDate": null,
+        "progress": 0
+      },
+      {
+        "id": "l4",
+        "title": "Experiment with AR/VR",
+        "description": "Prototype AR/VR tour experiences",
+        "status": "planned",
+        "priority": "low",
+        "owner": null,
+        "dueDate": null,
+        "progress": 0
+      },
+      {
+        "id": "l5",
+        "title": "Develop AI tour guide chatbot",
+        "description": "AI-powered virtual tour guide assistant",
+        "status": "planned",
+        "priority": "medium",
+        "owner": null,
+        "dueDate": null,
+        "progress": 0
+      },
+      {
+        "id": "l6",
+        "title": "Build modular architecture",
+        "description": "Create scalable, modular application architecture",
+        "status": "planned",
+        "priority": "high",
+        "owner": null,
+        "dueDate": null,
+        "progress": 0
+      }
+    ]
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "createdDate": "2026-01-08",
+    "createdBy": "Claude",
+    "reviewSchedule": {
+      "monthly": "First Monday of each month",
+      "quarterly": "Second week of Q1, Q2, Q3, Q4",
+      "annual": "January"
+    },
+    "statusCodes": {
+      "red": "Off track or not started",
+      "yellow": "At risk or needs attention",
+      "green": "On track or achieved"
+    },
+    "trendCodes": {
+      "up": "Improving",
+      "flat": "Stable",
+      "down": "Declining"
+    }
+  }
+}
