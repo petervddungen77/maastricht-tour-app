@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GezinsHub</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>🏡 GezinsHub</h1>
+    <p>Gezinsplanning, boodschappen, weer en herinneringen op één plek.</p>
+  </header>
+
+  <main class="grid">
+    <section class="card">
+      <h2>👨‍👩‍👧‍👦 Familie status & check-in</h2>
+      <form id="checkin-form" class="inline-form">
+        <input id="member-name" type="text" placeholder="Naam" required />
+        <input id="member-status" type="text" placeholder="Waar ben je nu?" required />
+        <button type="submit">Check-in</button>
+      </form>
+      <ul id="checkin-list"></ul>
+    </section>
+
+    <section class="card">
+      <h2>📅 Agenda</h2>
+      <form id="agenda-form" class="inline-form">
+        <input id="agenda-title" type="text" placeholder="Activiteit" required />
+        <input id="agenda-date" type="datetime-local" required />
+        <button type="submit">Toevoegen</button>
+      </form>
+      <ul id="agenda-list"></ul>
+    </section>
+
+    <section class="card">
+      <h2>🍽️ Poll avondeten (3 opties)</h2>
+      <div id="dinner-poll" class="poll"></div>
+    </section>
+
+    <section class="card">
+      <h2>🎬 Poll avondprogramma (3 opties)</h2>
+      <div id="evening-poll" class="poll"></div>
+    </section>
+
+    <section class="card">
+      <h2>🛒 Boodschappenlijst</h2>
+      <form id="grocery-form" class="inline-form">
+        <input id="grocery-item" type="text" placeholder="Bijv. melk" required />
+        <button type="submit">Toevoegen</button>
+      </form>
+      <ul id="grocery-list"></ul>
+    </section>
+
+    <section class="card">
+      <h2>🌦️ Weer thuislocatie (ochtend/middag/avond + buien)</h2>
+      <form id="weather-form" class="inline-form">
+        <input id="home-lat" type="number" step="0.0001" value="50.8514" required />
+        <input id="home-lon" type="number" step="0.0001" value="5.6900" required />
+        <button type="submit">Ververs weer</button>
+      </form>
+      <div id="weather-output" class="weather-output">Laden...</div>
+    </section>
+
+    <section class="card">
+      <h2>✅ Taken / actielijst (Top 3 prioriteit)</h2>
+      <form id="task-form" class="inline-form">
+        <input id="task-title" type="text" placeholder="Taak" required />
+        <select id="task-priority">
+          <option value="1">1 (hoog)</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+        <button type="submit">Toevoegen</button>
+      </form>
+      <ol id="priority-list"></ol>
+    </section>
+
+    <section class="card">
+      <h2>🖼️ Foto collage</h2>
+      <input id="photo-input" type="file" accept="image/*" multiple />
+      <div id="photo-collage" class="collage"></div>
+    </section>
+
+    <section class="card">
+      <h2>📞 Noodcontacten</h2>
+      <form id="contact-form" class="inline-form">
+        <input id="contact-name" type="text" placeholder="Naam" required />
+        <input id="contact-phone" type="tel" placeholder="Telefoon" required />
+        <button type="submit">Toevoegen</button>
+      </form>
+      <ul id="contact-list"></ul>
+    </section>
+
+    <section class="card">
+      <h2>📝 Gezinsnotities</h2>
+      <textarea id="family-notes" rows="6" placeholder="Gezamenlijke notities, afspraken of reminders..."></textarea>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
