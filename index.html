@@ -24,6 +24,7 @@
       <nav class="tabs">
         <button class="tab active" data-tab="members">Leden</button>
         <button class="tab" data-tab="places">Plaatsen</button>
+        <button class="tab" data-tab="chat">Chat <span id="chat-badge" class="badge hidden">0</span></button>
         <button class="tab" data-tab="alerts">Meldingen <span id="alert-badge" class="badge hidden">0</span></button>
       </nav>
 
@@ -35,9 +36,18 @@
         <button id="add-place-btn" class="btn-secondary">+ Plaats toevoegen (klik daarna op de kaart)</button>
       </section>
 
+      <section id="tab-chat" class="tab-panel hidden">
+        <div id="chat-messages"><p class="hint">Nog geen berichten in deze cirkel. Stuur de eerste!</p></div>
+      </section>
+
       <section id="tab-alerts" class="tab-panel hidden">
         <div id="alerts-list"><p class="hint">Nog geen meldingen.</p></div>
       </section>
+
+      <div id="chat-compose" class="hidden">
+        <input id="chat-input" type="text" placeholder="Typ een bericht…" maxlength="300">
+        <button id="chat-send" title="Versturen">➤</button>
+      </div>
 
       <footer class="sidebar-footer">
         <button id="checkin-btn" class="btn-secondary">✓ Inchecken</button>
@@ -52,6 +62,15 @@
       <button id="locate-btn" title="Gebruik mijn echte locatie">📍 Mijn locatie</button>
     </main>
 
+  </div>
+
+  <!-- Rijrapport-overlay -->
+  <div id="report-overlay" class="hidden">
+    <div class="report-dialog">
+      <h2 id="report-title">Rijrapport</h2>
+      <div id="report-body"></div>
+      <button id="report-close" class="btn-secondary">Sluiten</button>
+    </div>
   </div>
 
   <!-- SOS-overlay -->

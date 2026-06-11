@@ -14,7 +14,12 @@ backend nodig.
 - **Plaatsen (geofences)** — standaard Thuis, School en Werk. Voeg zelf plaatsen
   toe door op de kaart te klikken; je krijgt een melding wanneer iemand aankomt
   of vertrekt. Plaatsen worden bewaard in localStorage.
-- **Meldingen** — feed met aankomst-/vertrekmeldingen, check-ins en SOS.
+- **Chat** — stuur berichten naar je cirkel (met gesimuleerde antwoorden);
+  berichten worden per cirkel bewaard in localStorage.
+- **Rijrapporten** — per lid een rapport (📊-knop) met afgelegde afstand,
+  topsnelheid, hard remmen en een rijscore.
+- **Meldingen** — feed met aankomst-/vertrekmeldingen, check-ins, bijna lege
+  batterij en SOS.
 - **Inchecken** — deel met één klik waar je bent.
 - **SOS** — noodknop met aftelling; je marker gaat pulseren en de cirkel krijgt
   een noodmelding.

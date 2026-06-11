@@ -231,6 +231,131 @@ body {
   margin-top: 3px;
 }
 
+/* Chat */
+
+#chat-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chat-msg {
+  max-width: 85%;
+  padding: 8px 12px;
+  border-radius: 14px;
+  font-size: 13px;
+  line-height: 1.4;
+  background: var(--bg);
+  align-self: flex-start;
+}
+
+.chat-msg.mine {
+  align-self: flex-end;
+  background: var(--purple);
+  color: #fff;
+}
+
+.chat-sender {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.chat-msg.mine .chat-sender { display: none; }
+
+.chat-time {
+  display: block;
+  font-size: 10px;
+  opacity: 0.6;
+  margin-top: 2px;
+  text-align: right;
+}
+
+#chat-compose {
+  display: flex;
+  gap: 8px;
+  padding: 10px 12px;
+  border-top: 1px solid #e8e3f0;
+}
+
+#chat-input {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid #d9d2e6;
+  font-size: 14px;
+  outline: none;
+}
+
+#chat-input:focus { border-color: var(--purple); }
+
+#chat-send {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background: var(--purple);
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+#chat-send:hover { background: var(--purple-dark); }
+
+/* Rijrapport */
+
+.report-btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 4px;
+}
+
+#report-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 12, 30, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.report-dialog {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 24px;
+  max-width: 400px;
+  width: 92%;
+}
+
+.report-dialog h2 { margin-bottom: 14px; font-size: 18px; }
+.report-dialog .btn-secondary { width: 100%; margin-top: 16px; }
+
+.report-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--bg);
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.report-stat b { font-size: 16px; }
+.report-stat .warn { color: var(--red); }
+.report-grade {
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 10px;
+}
+.report-grade b { font-size: 26px; display: block; color: var(--green); }
+.report-grade b.warn { color: var(--orange); }
+
 /* Voettekst */
 
 .sidebar-footer {

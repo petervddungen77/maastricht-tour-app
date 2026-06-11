@@ -139,6 +139,10 @@
       const state = {
         target: randomNearbyPoint(m.pos),
         speedKmh: 0,
+        driving: false,
+        distM: 0,
+        maxSpeed: 0,
+        hardBrakes: 0,
         trail: [m.pos.slice()],
         insidePlaces: new Set(places.filter((p) => distanceM(m.pos, p.pos) <= p.radius).map((p) => p.id)),
         marker: null,
@@ -168,11 +172,14 @@
       if (!s) continue;
 
       if (!(m.isSelf && usingRealLocation)) {
-        // Beweeg richting het doel; kies een nieuw doel als het bereikt is
-        const stepDeg = 0.00035 + Math.random() * 0.00045; // ± wandel-/fietstempo
+        // Wissel af en toe tussen lopen/fietsen en autorijden
+        if (Math.random() < 0.015) s.driving = !s.driving;
+        const baseStep = 0.00006 + Math.random() * 0.00008; // ± wandel-/fietstempo
+        const stepDeg = baseStep * (s.driving ? 4 : 1);
         const dLat = s.target[0] - m.pos[0];
         const dLng = s.target[1] - m.pos[1];
         const dist = Math.hypot(dLat, dLng);
+        const prevSpeed = s.speedKmh;
         if (dist < stepDeg) {
           // Pauzeer soms even op een plek
           if (Math.random() < 0.3) s.target = randomNearbyPoint(m.pos);
@@ -180,10 +187,18 @@
         } else {
           const prev = m.pos.slice();
           m.pos = [m.pos[0] + (dLat / dist) * stepDeg, m.pos[1] + (dLng / dist) * stepDeg];
-          s.speedKmh = Math.round((distanceM(prev, m.pos) / (TICK_MS / 1000)) * 3.6);
+          const movedM = distanceM(prev, m.pos);
+          s.speedKmh = Math.round((movedM / (TICK_MS / 1000)) * 3.6);
+          s.distM += movedM;
+          if (s.speedKmh > s.maxSpeed) s.maxSpeed = s.speedKmh;
         }
+        // Hard remmen: grote snelheidsafname in één tik
+        if (prevSpeed - s.speedKmh > 30) s.hardBrakes++;
         // Batterij loopt langzaam leeg
-        if (Math.random() < 0.05 && m.battery > 1) m.battery--;
+        if (Math.random() < 0.05 && m.battery > 1) {
+          m.battery--;
+          if (m.battery === 20) addAlert(`🪫 De batterij van ${m.name} is bijna leeg (20%)`);
+        }
       }
 
       s.trail.push(m.pos.slice());
@@ -229,8 +244,13 @@
         <div class="member-meta">
           <div class="battery${m.battery <= 20 ? " low" : ""}">🔋 ${m.battery}%</div>
           <div class="speed-chip">${s ? s.speedKmh : 0} km/u</div>
-        </div>`;
+        </div>
+        <button class="report-btn" title="Rijrapport">📊</button>`;
       card.addEventListener("click", () => selectMember(m.id));
+      card.querySelector(".report-btn").addEventListener("click", (e) => {
+        e.stopPropagation();
+        openReport(m);
+      });
       panel.appendChild(card);
     }
   }
@@ -268,6 +288,32 @@
       }
     }
   }
+
+  // ---------- Rijrapport ----------
+
+  const reportOverlay = document.getElementById("report-overlay");
+
+  function openReport(m) {
+    const s = sim.get(m.id);
+    if (!s) return;
+    const km = (s.distM / 1000).toFixed(1);
+    const score = Math.max(0, Math.min(100, 100 - s.hardBrakes * 8 - Math.max(0, s.maxSpeed - 100)));
+    document.getElementById("report-title").textContent = `📊 Rijrapport — ${m.name}`;
+    document.getElementById("report-body").innerHTML = `
+      <div class="report-stat"><span>🛣️ Afgelegde afstand</span><b>${km} km</b></div>
+      <div class="report-stat"><span>🚀 Topsnelheid</span><b class="${s.maxSpeed > 100 ? "warn" : ""}">${s.maxSpeed} km/u</b></div>
+      <div class="report-stat"><span>🛑 Hard remmen</span><b class="${s.hardBrakes > 2 ? "warn" : ""}">${s.hardBrakes}×</b></div>
+      <div class="report-stat"><span>🔋 Batterij</span><b>${m.battery}%</b></div>
+      <div class="report-grade">Rijscore<b class="${score < 70 ? "warn" : ""}">${score}</b>${
+        score >= 90 ? "Uitstekend gereden! 🌟" : score >= 70 ? "Prima, let op het remmen." : "Rij voorzichtiger! ⚠️"
+      }</div>`;
+    reportOverlay.classList.remove("hidden");
+  }
+
+  document.getElementById("report-close").addEventListener("click", () => reportOverlay.classList.add("hidden"));
+  reportOverlay.addEventListener("click", (e) => {
+    if (e.target === reportOverlay) reportOverlay.classList.add("hidden");
+  });
 
   // ---------- Weergave: plaatsen ----------
 
@@ -324,6 +370,95 @@
     badge.classList.toggle("hidden", unreadAlerts === 0);
   }
 
+  // ---------- Chat ----------
+
+  const CHAT_REPLIES = [
+    "Oké! 👍", "Ben onderweg 🚗", "Tot zo!", "Goed bezig 😄",
+    "Ik ben er over 10 minuten", "Zal ik iets meenemen?", "👌",
+    "Haha 😂", "Is goed, ik laat het weten", "Waar spreken we af?",
+  ];
+
+  let chats = loadChats();
+  let unreadChat = 0;
+  let activeTab = "members";
+
+  function loadChats() {
+    try {
+      const raw = localStorage.getItem("familiekring-chat");
+      if (raw) return JSON.parse(raw);
+    } catch (_) { /* negeer corrupte opslag */ }
+    return {};
+  }
+
+  function saveChats() {
+    localStorage.setItem("familiekring-chat", JSON.stringify(chats));
+  }
+
+  function circleChat() {
+    if (!chats[circleId]) chats[circleId] = [];
+    return chats[circleId];
+  }
+
+  function renderChat() {
+    const box = document.getElementById("chat-messages");
+    const msgs = circleChat();
+    if (msgs.length === 0) {
+      box.innerHTML = '<p class="hint">Nog geen berichten in deze cirkel. Stuur de eerste!</p>';
+    } else {
+      box.innerHTML = msgs
+        .map((msg) => {
+          const member = members().find((x) => x.id === msg.from);
+          const mine = member && member.isSelf;
+          return `<div class="chat-msg${mine ? " mine" : ""}">
+            <span class="chat-sender" style="color:${member ? member.color : "var(--muted)"}">${member ? member.name : "Onbekend"}</span>
+            ${msg.text}
+            <span class="chat-time">${msg.time}</span>
+          </div>`;
+        })
+        .join("");
+    }
+    box.scrollTop = box.scrollHeight;
+    const badge = document.getElementById("chat-badge");
+    badge.textContent = unreadChat;
+    badge.classList.toggle("hidden", unreadChat === 0);
+  }
+
+  function pushChat(fromId, text) {
+    circleChat().push({ from: fromId, text, time: timeNow() });
+    if (circleChat().length > 100) circleChat().shift();
+    saveChats();
+    if (activeTab !== "chat") {
+      const member = members().find((x) => x.id === fromId);
+      if (member && !member.isSelf) {
+        unreadChat++;
+        showBanner(`💬 ${member.name}: ${text}`, false);
+      }
+    }
+    renderChat();
+  }
+
+  function sendChat() {
+    const input = document.getElementById("chat-input");
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = "";
+    pushChat(self().id, text);
+    // Gesimuleerd antwoord van een willekeurig ander lid
+    const others = members().filter((x) => !x.isSelf);
+    const replier = others[Math.floor(Math.random() * others.length)];
+    const replyCircle = circleId;
+    setTimeout(() => {
+      if (circleId === replyCircle) {
+        pushChat(replier.id, CHAT_REPLIES[Math.floor(Math.random() * CHAT_REPLIES.length)]);
+      }
+    }, 1500 + Math.random() * 3000);
+  }
+
+  document.getElementById("chat-send").addEventListener("click", sendChat);
+  document.getElementById("chat-input").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") sendChat();
+  });
+
   // ---------- Tabbladen & cirkels ----------
 
   document.querySelectorAll(".tab").forEach((tab) => {
@@ -331,12 +466,18 @@
       document.querySelectorAll(".tab").forEach((t) => t.classList.remove("active"));
       tab.classList.add("active");
       const name = tab.dataset.tab;
+      activeTab = name;
       for (const panel of document.querySelectorAll(".tab-panel")) {
         panel.classList.toggle("hidden", panel.id !== `tab-${name}`);
       }
+      document.getElementById("chat-compose").classList.toggle("hidden", name !== "chat");
       if (name === "alerts") {
         unreadAlerts = 0;
         renderAlerts();
+      }
+      if (name === "chat") {
+        unreadChat = 0;
+        renderChat();
       }
     });
   });
@@ -353,6 +494,7 @@
     selectedMemberId = null;
     initSim();
     renderMembers();
+    renderChat();
     map.flyTo(MAASTRICHT, 14);
   });
 
@@ -468,5 +610,6 @@
   renderPlaces();
   renderMembers();
   renderAlerts();
+  renderChat();
   setInterval(tick, TICK_MS);
 })();
