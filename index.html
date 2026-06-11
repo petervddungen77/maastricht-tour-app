@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FamilieKring — Blijf verbonden</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+
+    <!-- Zijbalk -->
+    <aside id="sidebar">
+      <header class="sidebar-header">
+        <div class="logo">
+          <span class="logo-icon">⊕</span>
+          <h1>FamilieKring</h1>
+        </div>
+        <select id="circle-select" title="Kies een cirkel"></select>
+      </header>
+
+      <nav class="tabs">
+        <button class="tab active" data-tab="members">Leden</button>
+        <button class="tab" data-tab="places">Plaatsen</button>
+        <button class="tab" data-tab="chat">Chat <span id="chat-badge" class="badge hidden">0</span></button>
+        <button class="tab" data-tab="alerts">Meldingen <span id="alert-badge" class="badge hidden">0</span></button>
+      </nav>
+
+      <section id="tab-members" class="tab-panel"></section>
+
+      <section id="tab-places" class="tab-panel hidden">
+        <p class="hint">Krijg een melding wanneer iemand aankomt bij of vertrekt van een plaats.</p>
+        <div id="places-list"></div>
+        <button id="add-place-btn" class="btn-secondary">+ Plaats toevoegen (klik daarna op de kaart)</button>
+      </section>
+
+      <section id="tab-chat" class="tab-panel hidden">
+        <div id="chat-messages"><p class="hint">Nog geen berichten in deze cirkel. Stuur de eerste!</p></div>
+      </section>
+
+      <section id="tab-alerts" class="tab-panel hidden">
+        <div id="alerts-list"><p class="hint">Nog geen meldingen.</p></div>
+      </section>
+
+      <div id="chat-compose" class="hidden">
+        <input id="chat-input" type="text" placeholder="Typ een bericht…" maxlength="300">
+        <button id="chat-send" title="Versturen">➤</button>
+      </div>
+
+      <footer class="sidebar-footer">
+        <button id="checkin-btn" class="btn-secondary">✓ Inchecken</button>
+        <button id="sos-btn" class="btn-sos">SOS</button>
+      </footer>
+    </aside>
+
+    <!-- Kaart -->
+    <main id="map-container">
+      <div id="map"></div>
+      <div id="map-banner" class="hidden"></div>
+      <button id="locate-btn" title="Gebruik mijn echte locatie">📍 Mijn locatie</button>
+    </main>
+
+  </div>
+
+  <!-- Rijrapport-overlay -->
+  <div id="report-overlay" class="hidden">
+    <div class="report-dialog">
+      <h2 id="report-title">Rijrapport</h2>
+      <div id="report-body"></div>
+      <button id="report-close" class="btn-secondary">Sluiten</button>
+    </div>
+  </div>
+
+  <!-- SOS-overlay -->
+  <div id="sos-overlay" class="hidden">
+    <div class="sos-dialog">
+      <h2>🚨 SOS versturen?</h2>
+      <p>Alle leden van je cirkel ontvangen direct een noodmelding met je live locatie.</p>
+      <p id="sos-countdown" class="hidden"></p>
+      <div class="sos-actions">
+        <button id="sos-cancel" class="btn-secondary">Annuleren</button>
+        <button id="sos-confirm" class="btn-sos">Verstuur SOS</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="app.js"></script>
+</body>
+</html>
